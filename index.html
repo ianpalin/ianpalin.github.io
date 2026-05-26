@@ -7,18 +7,17 @@
   <style>
     :root {
       --ink: #171717;
-      --paper: #f6efe1;
-      --paper-2: #fff8ea;
-      --blue: #5fb8ff;
-      --green: #9bdc7b;
+      --paper: #f7efe0;
+      --paper-2: #fffaf0;
+      --blue: #77c8ff;
+      --green: #a9dc83;
       --yellow: #ffd86b;
-      --orange: #ff9b6a;
-      --pink: #ff87b7;
-      --purple: #bda4ff;
-      --muted: #5f5a52;
+      --orange: #ffab73;
+      --pink: #ff94bf;
+      --muted: #615b51;
       --line: #171717;
-      --shadow: 8px 8px 0 #171717;
-      --soft-shadow: 0 24px 70px rgba(23, 23, 23, 0.14);
+      --shadow: 7px 7px 0 #171717;
+      --radius: 30px;
     }
 
     * {
@@ -34,11 +33,10 @@
       color: var(--ink);
       font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background:
-        radial-gradient(circle at 18px 18px, rgba(23,23,23,0.12) 2px, transparent 2.5px),
-        linear-gradient(135deg, #f6efe1 0%, #fff8ea 48%, #f1e2c5 100%);
+        radial-gradient(circle at 18px 18px, rgba(23,23,23,0.10) 2px, transparent 2.5px),
+        linear-gradient(135deg, var(--paper) 0%, #fff8e9 55%, #f2dfbe 100%);
       background-size: 36px 36px, auto;
       min-height: 100vh;
-      overflow-x: hidden;
     }
 
     body::before {
@@ -46,17 +44,21 @@
       position: fixed;
       inset: 0;
       pointer-events: none;
-      background:
-        linear-gradient(90deg, rgba(255, 155, 106, 0.16), transparent 38%),
-        radial-gradient(circle at 82% 12%, rgba(95, 184, 255, 0.36), transparent 22rem),
-        radial-gradient(circle at 22% 88%, rgba(255, 135, 183, 0.28), transparent 20rem);
-      mix-blend-mode: multiply;
       z-index: -1;
+      background:
+        radial-gradient(circle at 78% 18%, rgba(119, 200, 255, 0.42), transparent 22rem),
+        radial-gradient(circle at 18% 78%, rgba(255, 148, 191, 0.30), transparent 20rem);
+      mix-blend-mode: multiply;
     }
 
     a {
       color: inherit;
       text-decoration: none;
+    }
+
+    img,
+    iframe {
+      max-width: 100%;
     }
 
     .shell {
@@ -83,8 +85,10 @@
       position: sticky;
       top: 0;
       z-index: 20;
-      padding: 18px 0 10px;
-      backdrop-filter: blur(8px);
+      padding: 14px 0;
+      backdrop-filter: blur(10px);
+      background: rgba(247, 239, 224, 0.72);
+      border-bottom: 2px solid rgba(23, 23, 23, 0.16);
     }
 
     nav {
@@ -94,28 +98,26 @@
       gap: 16px;
     }
 
-    .brand {
+    .nav-title {
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      padding: 9px 14px 10px 10px;
-      border: 2px solid var(--line);
-      background: var(--paper-2);
-      border-radius: 999px;
-      box-shadow: 4px 4px 0 var(--ink);
-      font-weight: 950;
-      letter-spacing: -0.05em;
+      font-weight: 1000;
+      letter-spacing: -0.06em;
+      font-size: 1.25rem;
     }
 
-    .brand-mark {
+    .nav-dot {
       width: 34px;
       height: 34px;
       border: 2px solid var(--line);
       border-radius: 50%;
+      background: var(--yellow);
+      box-shadow: 3px 3px 0 var(--ink);
       display: grid;
       place-items: center;
-      background: var(--yellow);
-      font-size: 0.8rem;
+      font-size: 0.72rem;
+      letter-spacing: -0.04em;
     }
 
     .links {
@@ -135,10 +137,10 @@
       border-radius: 999px;
       background: var(--paper-2);
       box-shadow: 3px 3px 0 var(--ink);
-      font-size: 0.86rem;
-      font-weight: 900;
+      font-size: 0.84rem;
+      font-weight: 950;
       text-transform: uppercase;
-      letter-spacing: 0.03em;
+      letter-spacing: 0.04em;
       transition: transform 150ms ease, box-shadow 150ms ease;
     }
 
@@ -148,97 +150,66 @@
 
     .links a:hover,
     .button:hover,
-    .project:hover {
+    .project-card:hover {
       transform: translate(-2px, -2px);
-      box-shadow: 7px 7px 0 var(--ink);
+      box-shadow: 6px 6px 0 var(--ink);
     }
 
     .hero {
-      min-height: calc(100vh - 78px);
-      display: grid;
-      align-items: center;
-      padding: 64px 0 92px;
+      padding: clamp(52px, 9vw, 96px) 0 clamp(46px, 8vw, 80px);
+      text-align: center;
     }
 
-    .hero-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
-      gap: clamp(28px, 6vw, 76px);
-      align-items: center;
-    }
-
-    .eyebrow-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 22px;
-    }
-
-    .sticker {
+    .hero-kicker {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 8px;
-      padding: 8px 12px;
+      margin-bottom: 18px;
+      padding: 9px 13px;
       border: 2px solid var(--line);
       border-radius: 999px;
-      box-shadow: 3px 3px 0 var(--ink);
       background: var(--paper-2);
+      box-shadow: 4px 4px 0 var(--ink);
       font-weight: 950;
       text-transform: uppercase;
       letter-spacing: 0.04em;
-      font-size: 0.78rem;
-      transform: rotate(-1.5deg);
-    }
-
-    .sticker:nth-child(2) {
-      background: var(--green);
-      transform: rotate(1.5deg);
-    }
-
-    .sticker:nth-child(3) {
-      background: var(--pink);
-      transform: rotate(-0.8deg);
+      font-size: 0.82rem;
+      transform: rotate(-1deg);
     }
 
     h1 {
-      margin: 0;
-      font-size: clamp(3.6rem, 11vw, 9.2rem);
-      line-height: 0.82;
-      letter-spacing: -0.1em;
+      margin: 0 auto;
+      max-width: 1020px;
+      font-size: clamp(4.7rem, 17vw, 12.8rem);
+      line-height: 0.78;
+      letter-spacing: -0.12em;
       text-transform: uppercase;
-      max-width: 820px;
     }
 
-    .word-pop {
-      display: inline-block;
-      color: var(--paper-2);
-      -webkit-text-stroke: 2px var(--ink);
-      text-shadow: 6px 6px 0 var(--orange);
-      transform: rotate(-2deg);
-    }
-
-    .intro-card {
-      width: min(650px, 100%);
-      margin-top: 30px;
-      padding: 20px 22px;
-      background: var(--paper-2);
+    .hero-summary {
+      width: min(760px, 100%);
+      margin: 28px auto 0;
+      padding: 20px 24px;
       border: 3px solid var(--line);
-      border-radius: 28px;
+      border-radius: var(--radius);
+      background: var(--paper-2);
       box-shadow: var(--shadow);
-      transform: rotate(-0.7deg);
+      transform: rotate(-0.4deg);
     }
 
-    .intro-card p {
+    .hero-summary p {
       margin: 0;
       color: var(--muted);
-      font-size: clamp(1rem, 2vw, 1.15rem);
-      line-height: 1.65;
-      font-weight: 650;
+      line-height: 1.7;
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      font-weight: 700;
     }
 
     .hero-actions {
       margin-top: 28px;
       display: flex;
+      justify-content: center;
       flex-wrap: wrap;
       gap: 14px;
     }
@@ -254,161 +225,17 @@
       border-radius: 999px;
       box-shadow: 5px 5px 0 var(--ink);
       font-weight: 950;
-      transition: transform 150ms ease, box-shadow 150ms ease;
-    }
-
-    .button.primary {
       background: var(--yellow);
+      transition: transform 150ms ease, box-shadow 150ms ease;
     }
 
     .button.secondary {
       background: var(--paper-2);
     }
 
-    .showcase {
-      position: relative;
-      min-height: 560px;
-    }
-
-    .browser-card {
-      position: absolute;
-      inset: 48px 0 auto auto;
-      width: min(430px, 100%);
-      border: 3px solid var(--line);
-      border-radius: 30px;
-      background: var(--paper-2);
-      box-shadow: 12px 12px 0 var(--ink);
-      overflow: hidden;
-      transform: rotate(2deg);
-    }
-
-    .browser-bar {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 13px 15px;
-      border-bottom: 3px solid var(--line);
-      background: var(--blue);
-    }
-
-    .dot {
-      width: 14px;
-      height: 14px;
-      border: 2px solid var(--line);
-      border-radius: 50%;
-      background: var(--paper-2);
-    }
-
-    .browser-content {
-      padding: 24px;
-    }
-
-    .mini-title {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 20px;
-    }
-
-    .mini-title strong {
-      font-size: 1.35rem;
-      letter-spacing: -0.05em;
-    }
-
-    .mini-pill {
-      padding: 6px 9px;
-      border: 2px solid var(--line);
-      border-radius: 999px;
-      background: var(--green);
-      font-weight: 950;
-      font-size: 0.76rem;
-    }
-
-    .stat-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
-    .stat {
-      min-height: 112px;
-      padding: 15px;
-      border: 3px solid var(--line);
-      border-radius: 22px;
-      background: #fff;
-    }
-
-    .stat:nth-child(2) { background: var(--yellow); }
-    .stat:nth-child(3) { background: var(--pink); }
-    .stat:nth-child(4) { background: var(--purple); }
-
-    .stat b {
-      display: block;
-      font-size: 1.8rem;
-      letter-spacing: -0.07em;
-      line-height: 1;
-    }
-
-    .stat span {
-      display: block;
-      margin-top: 8px;
-      color: #38342e;
-      font-weight: 800;
-      font-size: 0.84rem;
-      line-height: 1.25;
-    }
-
-    .floating-note {
-      position: absolute;
-      left: 10px;
-      top: 16px;
-      width: 190px;
-      padding: 18px;
-      border: 3px solid var(--line);
-      border-radius: 24px;
-      background: var(--green);
-      box-shadow: 8px 8px 0 var(--ink);
-      transform: rotate(-8deg);
-      font-weight: 950;
-      letter-spacing: -0.03em;
-      line-height: 1.05;
-      font-size: 1.28rem;
-    }
-
-    .floating-note small {
-      display: block;
-      margin-top: 10px;
-      font-size: 0.74rem;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: #3a362f;
-    }
-
-    .chip-stack {
-      position: absolute;
-      left: 40px;
-      bottom: 34px;
-      display: grid;
-      gap: 10px;
-      transform: rotate(-2deg);
-    }
-
-    .chip {
-      width: max-content;
-      border: 3px solid var(--line);
-      border-radius: 999px;
-      padding: 10px 14px;
-      box-shadow: 4px 4px 0 var(--ink);
-      background: var(--paper-2);
-      font-weight: 950;
-    }
-
-    .chip:nth-child(2) { background: var(--orange); margin-left: 34px; }
-    .chip:nth-child(3) { background: var(--blue); margin-left: 8px; }
-
     section {
-      padding: 80px 0;
+      padding: clamp(56px, 8vw, 90px) 0;
+      scroll-margin-top: 90px;
     }
 
     .section-label {
@@ -429,17 +256,17 @@
 
     .section-heading {
       display: grid;
-      grid-template-columns: 0.9fr 1.1fr;
-      gap: 24px;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 28px;
       align-items: end;
       margin-bottom: 28px;
     }
 
     .section-heading h2 {
       margin: 0;
-      font-size: clamp(2.4rem, 6vw, 5.8rem);
-      line-height: 0.85;
-      letter-spacing: -0.09em;
+      font-size: clamp(2.7rem, 7vw, 6.4rem);
+      line-height: 0.84;
+      letter-spacing: -0.10em;
       text-transform: uppercase;
     }
 
@@ -447,110 +274,13 @@
       margin: 0;
       color: var(--muted);
       line-height: 1.7;
-      font-weight: 700;
-      max-width: 620px;
-    }
-
-    .project-grid {
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 18px;
-      align-items: stretch;
-    }
-
-    .project {
-      position: relative;
-      min-height: 360px;
-      border: 3px solid var(--line);
-      border-radius: 34px;
-      box-shadow: 8px 8px 0 var(--ink);
-      overflow: hidden;
-      transition: transform 150ms ease, box-shadow 150ms ease;
-      background: var(--paper-2);
-    }
-
-    .project.large {
-      grid-column: span 7;
-      background: var(--blue);
-    }
-
-    .project.medium {
-      grid-column: span 5;
-      background: var(--yellow);
-    }
-
-    .project.small {
-      grid-column: span 4;
-      background: var(--green);
-    }
-
-    .project.small:nth-of-type(4) { background: var(--pink); }
-    .project.small:nth-of-type(5) { background: var(--purple); }
-
-    .project-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      border-bottom: 3px solid var(--line);
-      padding: 14px 16px;
-      background: rgba(255,255,255,0.45);
-    }
-
-    .project-tag {
-      font-weight: 950;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      font-size: 0.78rem;
-    }
-
-    .project-arrow {
-      width: 38px;
-      height: 38px;
-      display: grid;
-      place-items: center;
-      border: 2px solid var(--line);
-      border-radius: 50%;
-      background: var(--paper-2);
-      font-weight: 950;
-    }
-
-    .project-body {
-      padding: 24px;
-    }
-
-    .project h3 {
-      margin: 0 0 16px;
-      font-size: clamp(1.8rem, 4vw, 4rem);
-      line-height: 0.9;
-      letter-spacing: -0.08em;
-      text-transform: uppercase;
-    }
-
-    .project p {
-      margin: 0;
-      color: #332f2a;
-      line-height: 1.6;
-      font-weight: 730;
-      max-width: 560px;
-    }
-
-    .project-decoration {
-      position: absolute;
-      right: 20px;
-      bottom: 16px;
-      font-size: clamp(3.5rem, 8vw, 7.4rem);
-      line-height: 1;
-      opacity: 0.22;
-      font-weight: 950;
-      letter-spacing: -0.12em;
-      pointer-events: none;
+      font-weight: 720;
+      max-width: 680px;
     }
 
     .about-card {
       display: grid;
-      grid-template-columns: 0.8fr 1.2fr;
-      gap: 0;
+      grid-template-columns: minmax(280px, 0.78fr) minmax(0, 1.22fr);
       border: 3px solid var(--line);
       border-radius: 38px;
       overflow: hidden;
@@ -558,51 +288,45 @@
       background: var(--paper-2);
     }
 
-    .portrait-block {
-      min-height: 420px;
-      padding: 26px;
-      background:
-        radial-gradient(circle at 30% 28%, rgba(255,255,255,0.62), transparent 8rem),
-        var(--orange);
+    .about-photo-wrap {
+      min-height: 520px;
       border-right: 3px solid var(--line);
-      display: grid;
-      align-content: end;
-      gap: 16px;
+      background: var(--orange);
+      position: relative;
+      overflow: hidden;
     }
 
-    .portrait-face {
-      width: min(270px, 100%);
-      aspect-ratio: 1;
-      margin: 0 auto;
-      border: 3px solid var(--line);
-      border-radius: 42% 58% 48% 52% / 48% 36% 64% 52%;
-      background:
-        linear-gradient(135deg, rgba(255,255,255,0.54), transparent),
-        var(--yellow);
-      box-shadow: 8px 8px 0 var(--ink);
-      display: grid;
-      place-items: center;
-      font-size: clamp(3rem, 8vw, 5rem);
-      font-weight: 950;
-      letter-spacing: -0.1em;
-      transform: rotate(-5deg);
+    .about-photo {
+      width: 100%;
+      height: 100%;
+      min-height: 520px;
+      object-fit: cover;
+      object-position: center 34%;
+      display: block;
+      filter: saturate(1.03) contrast(1.02);
     }
 
-    .portrait-block p {
-      margin: 0;
+    .photo-note {
+      position: absolute;
+      left: 18px;
+      bottom: 18px;
+      right: 18px;
+      padding: 12px 14px;
+      border: 2px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255, 250, 240, 0.90);
+      box-shadow: 4px 4px 0 var(--ink);
       font-weight: 950;
-      line-height: 1.25;
-      letter-spacing: -0.04em;
-      font-size: 1.35rem;
+      font-size: 0.88rem;
     }
 
     .about-copy {
-      padding: clamp(26px, 5vw, 48px);
+      padding: clamp(26px, 5vw, 52px);
     }
 
     .about-copy h2 {
       margin: 0 0 18px;
-      font-size: clamp(2.4rem, 5vw, 5rem);
+      font-size: clamp(2.4rem, 5.5vw, 5.2rem);
       line-height: 0.88;
       letter-spacing: -0.09em;
       text-transform: uppercase;
@@ -613,7 +337,7 @@
       font-weight: 720;
       font-size: 1.05rem;
       line-height: 1.75;
-      margin: 0 0 22px;
+      margin: 0 0 20px;
     }
 
     .skills {
@@ -637,6 +361,125 @@
     .skill:nth-child(3n+2) { background: var(--blue); }
     .skill:nth-child(3n) { background: var(--pink); }
 
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 20px;
+    }
+
+    .project-card {
+      grid-column: span 6;
+      border: 3px solid var(--line);
+      border-radius: 34px;
+      background: var(--paper-2);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transition: transform 150ms ease, box-shadow 150ms ease;
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+    }
+
+    .project-card.featured {
+      grid-column: span 12;
+    }
+
+    .project-media {
+      border-bottom: 3px solid var(--line);
+      background: var(--blue);
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .project-media img,
+    .project-media iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    .project-media img {
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .plant-media img {
+      object-position: center 42%;
+    }
+
+    .image-placeholder {
+      width: 100%;
+      height: 100%;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      text-align: center;
+      font-weight: 950;
+      letter-spacing: -0.04em;
+      font-size: clamp(1.3rem, 3vw, 2.5rem);
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.50), transparent),
+        var(--green);
+    }
+
+    .project-body {
+      padding: 24px;
+      flex: 1;
+    }
+
+    .project-tag-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .project-tag {
+      display: inline-flex;
+      padding: 7px 10px;
+      border: 2px solid var(--line);
+      border-radius: 999px;
+      background: var(--yellow);
+      font-size: 0.78rem;
+      font-weight: 950;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .arrow {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border: 2px solid var(--line);
+      border-radius: 50%;
+      background: var(--paper);
+      font-weight: 950;
+      flex: 0 0 auto;
+    }
+
+    .project-card h3 {
+      margin: 0 0 12px;
+      font-size: clamp(2rem, 4.3vw, 4.5rem);
+      line-height: 0.88;
+      letter-spacing: -0.09em;
+      text-transform: uppercase;
+    }
+
+    .project-card:not(.featured) h3 {
+      font-size: clamp(1.8rem, 3.4vw, 3.3rem);
+    }
+
+    .project-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.68;
+      font-weight: 720;
+    }
+
     .contact-card {
       position: relative;
       overflow: hidden;
@@ -646,7 +489,6 @@
       color: var(--paper);
       box-shadow: 12px 12px 0 #000;
       padding: clamp(30px, 7vw, 70px);
-      min-height: 360px;
     }
 
     .contact-card::before {
@@ -661,17 +503,6 @@
       border: 3px solid var(--line);
     }
 
-    .contact-card::after {
-      content: "✦";
-      position: absolute;
-      right: 58px;
-      top: 38px;
-      color: var(--ink);
-      font-size: 5rem;
-      font-weight: 950;
-      transform: rotate(12deg);
-    }
-
     .contact-card h2,
     .contact-card p,
     .contact-card a {
@@ -681,29 +512,23 @@
 
     .contact-card h2 {
       margin: 0;
-      max-width: 820px;
-      font-size: clamp(2.7rem, 7vw, 7rem);
+      max-width: 850px;
+      font-size: clamp(2.8rem, 7vw, 7rem);
       line-height: 0.84;
-      letter-spacing: -0.1em;
+      letter-spacing: -0.10em;
       text-transform: uppercase;
     }
 
     .contact-card p {
       max-width: 620px;
       margin: 24px 0 30px;
-      color: #d4caba;
+      color: #d6ccbd;
       line-height: 1.7;
       font-weight: 700;
     }
 
-    .contact-card .button {
-      color: var(--ink);
-      background: var(--yellow);
-      box-shadow: 5px 5px 0 #000;
-    }
-
     footer {
-      padding: 38px 0 52px;
+      padding: 36px 0 52px;
       color: var(--muted);
       font-weight: 800;
     }
@@ -731,62 +556,32 @@
     }
 
     @media (max-width: 900px) {
-      header {
-        position: relative;
-      }
-
       nav {
         align-items: flex-start;
       }
 
-      .hero {
-        min-height: auto;
-        padding-top: 42px;
-      }
-
-      .hero-grid,
       .section-heading,
       .about-card {
         grid-template-columns: 1fr;
       }
 
-      .showcase {
-        min-height: 500px;
-      }
-
-      .browser-card {
-        right: 0;
-        left: auto;
-        width: min(390px, calc(100% - 28px));
-      }
-
-      .floating-note {
-        left: 0;
-        top: 0;
-        width: 170px;
-      }
-
-      .chip-stack {
-        left: 0;
-      }
-
-      .project.large,
-      .project.medium,
-      .project.small {
-        grid-column: 1 / -1;
-      }
-
-      .portrait-block {
+      .about-photo-wrap {
         border-right: 0;
         border-bottom: 3px solid var(--line);
+        min-height: 420px;
       }
 
-      .links {
-        max-width: 310px;
+      .about-photo {
+        min-height: 420px;
+      }
+
+      .project-card,
+      .project-card.featured {
+        grid-column: 1 / -1;
       }
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 620px) {
       .shell {
         width: min(100% - 22px, 1120px);
       }
@@ -803,54 +598,26 @@
       .links a {
         min-height: 36px;
         padding: 0 12px;
-        font-size: 0.78rem;
+        font-size: 0.76rem;
       }
 
       h1 {
-        font-size: clamp(3.1rem, 18vw, 5.4rem);
+        font-size: clamp(4rem, 22vw, 6.5rem);
       }
 
-      .intro-card {
-        box-shadow: 6px 6px 0 var(--ink);
+      .hero-summary,
+      .project-card,
+      .about-card {
+        box-shadow: 5px 5px 0 var(--ink);
       }
 
-      .showcase {
-        min-height: 450px;
+      .about-photo-wrap,
+      .about-photo {
+        min-height: 360px;
       }
 
-      .floating-note {
-        position: relative;
-        width: 100%;
-        transform: rotate(-2deg);
-        margin-bottom: 14px;
-      }
-
-      .browser-card {
-        position: relative;
-        inset: auto;
-        width: 100%;
-        transform: rotate(1deg);
-        box-shadow: 8px 8px 0 var(--ink);
-      }
-
-      .chip-stack {
-        position: relative;
-        left: auto;
-        bottom: auto;
-        margin-top: 16px;
-      }
-
-      section {
-        padding: 58px 0;
-      }
-
-      .project {
-        min-height: auto;
-      }
-
-      .contact-card::before,
-      .contact-card::after {
-        opacity: 0.5;
+      .contact-card::before {
+        opacity: 0.45;
       }
     }
   </style>
@@ -860,14 +627,14 @@
 
   <header>
     <nav class="shell" aria-label="Primary navigation">
-      <a class="brand" href="#top" aria-label="Home">
-        <span class="brand-mark">IP</span>
+      <a class="nav-title" href="#top" aria-label="Home">
+        <span class="nav-dot">IP</span>
         <span>Ian Palin</span>
       </a>
 
       <div class="links">
-        <a href="#work">Work</a>
         <a href="#about">About</a>
+        <a href="#projects">Projects</a>
         <a href="#contact">Contact</a>
       </div>
     </nav>
@@ -875,162 +642,35 @@
 
   <main id="main">
     <section id="top" class="hero shell">
-      <div class="hero-grid">
-        <div>
-          <div class="eyebrow-row" aria-label="Specialties">
-            <span class="sticker">Optics</span>
-            <span class="sticker">ML</span>
-            <span class="sticker">Hardware</span>
-          </div>
-
-          <h1>Ian makes invisible things <span class="word-pop">measurable.</span></h1>
-
-          <div class="intro-card">
-            <p>
-              I build experimental tools, computer vision pipelines, and machine-learning workflows for messy physical systems — the kind where the signal is small, the data is noisy, and the answer still needs to be useful.
-            </p>
-          </div>
-
-          <div class="hero-actions">
-            <a class="button primary" href="#work">See the work →</a>
-            <a class="button secondary" href="mailto:ian2000pal@gmail.com">Email me</a>
-          </div>
-        </div>
-
-        <div class="showcase" aria-label="Decorative portfolio preview">
-          <div class="floating-note">
-            Signal → insight
-            <small>physics, code, prototypes</small>
-          </div>
-
-          <div class="browser-card">
-            <div class="browser-bar" aria-hidden="true">
-              <span class="dot"></span>
-              <span class="dot"></span>
-              <span class="dot"></span>
-            </div>
-            <div class="browser-content">
-              <div class="mini-title">
-                <strong>Current stack</strong>
-                <span class="mini-pill">live-ish</span>
-              </div>
-              <div class="stat-grid">
-                <div class="stat">
-                  <b>CV</b>
-                  <span>Image-based sensing</span>
-                </div>
-                <div class="stat">
-                  <b>GPU</b>
-                  <span>Fast analysis pipelines</span>
-                </div>
-                <div class="stat">
-                  <b>ML</b>
-                  <span>Physics-aware models</span>
-                </div>
-                <div class="stat">
-                  <b>PCB</b>
-                  <span>Embedded prototypes</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="chip-stack" aria-hidden="true">
-            <span class="chip">Python · PyTorch · OpenCV</span>
-            <span class="chip">BOS · PIV · optical flow</span>
-            <span class="chip">CAD · PCB · embedded</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="work" class="shell">
-      <span class="section-label">Selected projects</span>
-      <div class="section-heading">
-        <h2>Case studies, but less boring.</h2>
+      <div class="hero-kicker">Optical sensing · machine learning · hardware</div>
+      <h1>Ian Palin</h1>
+      <div class="hero-summary">
         <p>
-          Replace the links with repos, papers, internal writeups, or short project pages as you build the site out. The layout is intentionally colorful and personal rather than corporate.
+          I build experimental tools, computer vision pipelines, and machine-learning workflows for messy physical systems — especially where the signal is small, the data is noisy, and the result still needs to be useful.
         </p>
       </div>
-
-      <div class="project-grid">
-        <a class="project large" href="#" aria-label="Open BOS leak detection project">
-          <div class="project-top">
-            <span class="project-tag">Computer vision</span>
-            <span class="project-arrow">↗</span>
-          </div>
-          <div class="project-body">
-            <h3>BOS leak detection</h3>
-            <p>GPU-accelerated background-oriented schlieren pipeline for seeing refractive-index disturbances that are nearly invisible in raw video.</p>
-          </div>
-          <div class="project-decoration">Δn</div>
-        </a>
-
-        <a class="project medium" href="#" aria-label="Open machine learning project">
-          <div class="project-top">
-            <span class="project-tag">Applied ML</span>
-            <span class="project-arrow">↗</span>
-          </div>
-          <div class="project-body">
-            <h3>Leak-rate inference</h3>
-            <p>Grouped validation, metadata-aware models, and image summaries for estimating physical quantities from experimental video.</p>
-          </div>
-          <div class="project-decoration">AI</div>
-        </a>
-
-        <a class="project small" href="#" aria-label="Open embedded hardware project">
-          <div class="project-top">
-            <span class="project-tag">Hardware</span>
-            <span class="project-arrow">↗</span>
-          </div>
-          <div class="project-body">
-            <h3>Plant robot</h3>
-            <p>Custom PCB, pump control, tiny display UI, and manufacturable enclosure thinking for an automated watering pot.</p>
-          </div>
-          <div class="project-decoration">PCB</div>
-        </a>
-
-        <a class="project small" href="#" aria-label="Open soapy water quantification project">
-          <div class="project-top">
-            <span class="project-tag">Measurement</span>
-            <span class="project-arrow">↗</span>
-          </div>
-          <div class="project-body">
-            <h3>Bubble tracking</h3>
-            <p>Computer-vision features for turning qualitative leak-test footage into quantitative, repeatable measurements.</p>
-          </div>
-          <div class="project-decoration">○</div>
-        </a>
-
-        <a class="project small" href="#" aria-label="Open forecasting and controls project">
-          <div class="project-top">
-            <span class="project-tag">Modeling</span>
-            <span class="project-arrow">↗</span>
-          </div>
-          <div class="project-body">
-            <h3>Plume estimates</h3>
-            <p>Gaussian-process style estimates and fast analysis routines for uncertain sensing and localization problems.</p>
-          </div>
-          <div class="project-decoration">GP</div>
-        </a>
+      <div class="hero-actions">
+        <a class="button" href="#about">About me →</a>
+        <a class="button secondary" href="#projects">Projects</a>
       </div>
     </section>
 
     <section id="about" class="shell">
       <div class="about-card">
-        <div class="portrait-block">
-          <div class="portrait-face" aria-hidden="true">IP</div>
-          <p>Builder of weird measurement systems, practical prototypes, and code that has to work outside the notebook.</p>
+        <div class="about-photo-wrap">
+          <!-- Replace this with your cropped/converted profile image. GitHub Pages cannot use /Users/... local paths. -->
+          <img class="about-photo" src="assets/IMG_1584.jpg" alt="Ian Palin" />
+          <div class="photo-note">Profile photo placeholder: assets/IMG_1584.jpg</div>
         </div>
 
         <div class="about-copy">
           <span class="section-label">About</span>
           <h2>Physics brain, software hands.</h2>
           <p>
-            My favorite projects sit between disciplines: optical diagnostics, experimental design, GPU-accelerated image processing, machine learning, and the unglamorous hardware details that make a demo become a system.
+            My favorite projects sit between disciplines: optical diagnostics, experimental design, GPU-accelerated image processing, machine learning, and the hardware details that make a demo become a system.
           </p>
           <p>
-            This site is a place to collect project writeups, visuals, papers, demos, and notes in a way that feels more like a sketchbook than a formal CV.
+            This site is a place to collect project writeups, visuals, papers, demos, and notes in a way that feels more like a working sketchbook than a formal CV.
           </p>
 
           <div class="skills" aria-label="Skills and focus areas">
@@ -1048,11 +688,109 @@
       </div>
     </section>
 
+    <section id="projects" class="shell">
+      <span class="section-label">Projects</span>
+      <div class="section-heading">
+        <h2>Selected work.</h2>
+        <p>
+          A few projects that show the mix of physics, software, imaging, and hardware I like working on. The images/videos here are easy to swap as the site evolves.
+        </p>
+      </div>
+
+      <div class="project-grid">
+        <article class="project-card featured">
+          <div class="project-media">
+            <iframe
+              src="https://www.youtube.com/embed/2K7Hlrp6Olk"
+              title="Background Oriented Schlieren video"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+          </div>
+          <div class="project-body">
+            <div class="project-tag-row">
+              <span class="project-tag">Computer vision</span>
+              <span class="arrow">↗</span>
+            </div>
+            <h3>BOS leak detection</h3>
+            <p>
+              Background-oriented schlieren pipeline for visualizing subtle refractive-index disturbances in video, then turning those small shifts into useful measurements with GPU-accelerated analysis and machine learning.
+            </p>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-media plant-media">
+            <!-- Replace this with your converted plant project image. GitHub Pages cannot use /Users/... local paths. -->
+            <img src="assets/IMG_7925-2.jpg" alt="Automated plant watering hardware project" />
+          </div>
+          <div class="project-body">
+            <div class="project-tag-row">
+              <span class="project-tag">Hardware</span>
+              <span class="arrow">↗</span>
+            </div>
+            <h3>Plant robot</h3>
+            <p>
+              Custom PCB, pump control, display UI, enclosure design, and manufacturing-minded iteration for an automated watering pot.
+            </p>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-media">
+            <div class="image-placeholder">Add project image here</div>
+          </div>
+          <div class="project-body">
+            <div class="project-tag-row">
+              <span class="project-tag">Applied ML</span>
+              <span class="arrow">↗</span>
+            </div>
+            <h3>Leak-rate inference</h3>
+            <p>
+              Grouped validation, metadata-aware models, and image-summary features for estimating physical quantities from experimental videos.
+            </p>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-media">
+            <div class="image-placeholder">Add project image here</div>
+          </div>
+          <div class="project-body">
+            <div class="project-tag-row">
+              <span class="project-tag">Measurement</span>
+              <span class="arrow">↗</span>
+            </div>
+            <h3>Bubble tracking</h3>
+            <p>
+              Computer-vision features for turning qualitative soapy-water leak-test footage into quantitative, repeatable measurements.
+            </p>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-media">
+            <div class="image-placeholder">Add project image here</div>
+          </div>
+          <div class="project-body">
+            <div class="project-tag-row">
+              <span class="project-tag">Modeling</span>
+              <span class="arrow">↗</span>
+            </div>
+            <h3>Plume estimates</h3>
+            <p>
+              Uncertainty-aware modeling and fast analysis routines for sensing, localization, and source-estimation problems.
+            </p>
+          </div>
+        </article>
+      </div>
+    </section>
+
     <section id="contact" class="shell">
       <div class="contact-card">
         <h2>Got a strange signal?</h2>
         <p>
-          I’m interested in measurement problems that need a blend of physics intuition, image analysis, ML, and fast prototyping.
+          I’m interested in measurement problems that need a blend of physics intuition, image analysis, machine learning, and fast prototyping.
         </p>
         <a class="button" href="mailto:ian2000pal@gmail.com">ian2000pal@gmail.com →</a>
       </div>
