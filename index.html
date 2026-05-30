@@ -449,16 +449,8 @@
       letter-spacing: 0.04em;
     }
 
-    .arrow {
-      width: 38px;
-      height: 38px;
-      display: grid;
-      place-items: center;
-      border: 2px solid var(--line);
-      border-radius: 50%;
-      background: var(--paper);
-      font-weight: 950;
-      flex: 0 0 auto;
+    .project-card {
+      cursor: pointer;
     }
 
     .project-card h3 {
@@ -555,6 +547,128 @@
       text-underline-offset: 4px;
     }
 
+    /* ── Modal ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      background: rgba(23, 23, 23, 0.68);
+      backdrop-filter: blur(5px);
+      padding: 24px 16px;
+      overflow-y: auto;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal-card {
+      position: relative;
+      width: min(880px, 100%);
+      margin: auto;
+      background: var(--paper-2);
+      border: 3px solid var(--line);
+      border-radius: 38px;
+      box-shadow: 14px 14px 0 var(--ink);
+      overflow: hidden;
+      animation: modal-in 200ms ease;
+    }
+
+    @keyframes modal-in {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 46px;
+      height: 46px;
+      border: 2px solid var(--line);
+      border-radius: 50%;
+      background: var(--paper);
+      box-shadow: 3px 3px 0 var(--ink);
+      font-size: 1.15rem;
+      font-weight: 950;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      z-index: 2;
+      transition: transform 150ms ease, box-shadow 150ms ease;
+    }
+
+    .modal-close:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 5px 5px 0 var(--ink);
+    }
+
+    .modal-header {
+      padding: 36px 36px 24px;
+    }
+
+    .modal-tag {
+      display: inline-flex;
+      padding: 7px 10px;
+      border: 2px solid var(--line);
+      border-radius: 999px;
+      background: var(--yellow);
+      font-size: 0.78rem;
+      font-weight: 950;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 18px;
+    }
+
+    .modal-title {
+      margin: 0 0 18px;
+      font-size: clamp(2.2rem, 6vw, 4.8rem);
+      line-height: 0.88;
+      letter-spacing: -0.10em;
+      text-transform: uppercase;
+    }
+
+    .modal-desc {
+      color: var(--muted);
+      font-weight: 720;
+      line-height: 1.78;
+      font-size: 1.06rem;
+      margin: 0;
+    }
+
+    .modal-images {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 3px solid var(--line);
+    }
+
+    .modal-images.two-up {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .modal-img-slot {
+      aspect-ratio: 4 / 3;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      font-weight: 950;
+      font-size: 0.88rem;
+      letter-spacing: -0.03em;
+      padding: 20px;
+      border-right: 3px solid var(--line);
+      background: var(--blue);
+    }
+
+    .modal-img-slot:last-child {
+      border-right: 0;
+    }
+
+    .modal-img-slot:nth-child(2) { background: var(--green); }
+    .modal-img-slot:nth-child(3) { background: var(--pink); }
+
     @media (max-width: 900px) {
       nav {
         align-items: flex-start;
@@ -646,7 +760,7 @@
       <h1>Ian Palin</h1>
       <div class="hero-summary">
         <p>
-          I build experimental tools, computer vision pipelines, and machine-learning workflows for messy physical systems — especially where the signal is small, the data is noisy, and the result still needs to be useful.
+          Research engineer at the National Laboratory of the Rockies, working on hydrogen safety and sensing. Most of the interesting problems here sit at the boundary between optics, GPU compute, and hardware — which is also where I tend to be most useful. Engineering Physics and Mechanical Engineering from Colorado School of Mines.
         </p>
       </div>
       <div class="hero-actions">
@@ -665,24 +779,25 @@
 
         <div class="about-copy">
           <span class="section-label">About</span>
-          <h2>Physics background, tinkerer at heart.</h2>
+          <h2>From Engineering Physics to hydrogen sensing R&D — turns out they overlap more than you'd think.</h2>
           <p>
-            My favorite projects sit between disciplines: optical diagnostics, experimental design, GPU-accelerated image processing, machine learning, and the hardware details that make a demo become a system.
+            I lead the coding, analysis, and electronics work for the Hydrogen Safety and Sensor Systems team at NLR. In practice that means I've written a GPU-accelerated PIV algorithm that outperformed every commercial tool we benchmarked, trained ResNet detection models on an HPC cluster, designed PCBs in KiCad, and built electrical control systems to C1D1 hazardous-area standards — often within the same project.
           </p>
           <p>
-            This site is a place to collect project writeups, visuals, papers, demos, and notes in a way that feels more like a working sketchbook than a formal CV.
+            B.S. Engineering Physics and M.S. Mechanical Engineering (Robotics track) from Colorado School of Mines. Two first-author peer-reviewed conference papers at ICHS, a journal paper in final prep, and a couple of software records on file with the lab's Tech Transfer Office. Outside the day job I keep hardware projects going — the plant pot on this page is a fair example of what I build when there's no spec sheet.
           </p>
 
           <div class="skills" aria-label="Skills and focus areas">
             <span class="skill">Python</span>
+            <span class="skill">CUDA / CuPy</span>
             <span class="skill">Computer vision</span>
             <span class="skill">PyTorch</span>
-            <span class="skill">CUDA / GPU</span>
+            <span class="skill">Gaussian process regression</span>
             <span class="skill">Optical diagnostics</span>
-            <span class="skill">Experimental design</span>
-            <span class="skill">Embedded systems</span>
-            <span class="skill">PCB design</span>
-            <span class="skill">CAD / prototyping</span>
+            <span class="skill">Embedded / MCU</span>
+            <span class="skill">KiCad / PCB</span>
+            <span class="skill">Pressure systems</span>
+            <span class="skill">C/C++</span>
           </div>
         </div>
       </div>
@@ -693,12 +808,12 @@
       <div class="section-heading">
         <h2>Selected work.</h2>
         <p>
-          A few projects that show the mix of physics, software, imaging, and hardware I like working on. The images/videos here are easy to swap as the site evolves.
+          A mix of lab work and personal projects. Most sit somewhere between optics, signal processing, and hardware — sometimes all three at once.
         </p>
       </div>
 
       <div class="project-grid">
-        <article class="project-card featured">
+        <article class="project-card featured" data-id="bos">
           <div class="project-media">
             <iframe
               src="https://www.youtube.com/embed/2K7Hlrp6Olk"
@@ -710,7 +825,6 @@
           <div class="project-body">
             <div class="project-tag-row">
               <span class="project-tag">Computer vision</span>
-              <span class="arrow">↗</span>
             </div>
             <h3>BOS leak detection</h3>
             <p>
@@ -719,7 +833,7 @@
           </div>
         </article>
 
-        <article class="project-card">
+        <article class="project-card" data-id="plant">
           <div class="project-media plant-media">
             <!-- Replace this with your converted plant project image. GitHub Pages cannot use /Users/... local paths. -->
             <img src="assets/IMG_7925-2.jpeg" alt="Automated plant watering hardware project" />
@@ -727,7 +841,6 @@
           <div class="project-body">
             <div class="project-tag-row">
               <span class="project-tag">Hardware</span>
-              <span class="arrow">↗</span>
             </div>
             <h3>Plant robot</h3>
             <p>
@@ -743,11 +856,10 @@
           <div class="project-body">
             <div class="project-tag-row">
               <span class="project-tag">Applied ML</span>
-              <span class="arrow">↗</span>
             </div>
             <h3>Leak-rate inference</h3>
             <p>
-              Grouped validation, metadata-aware models, and image-summary features for estimating physical quantities from experimental videos.
+              The ML layer on top of the BOS pipeline — CNN and ResNet models trained to regress actual leak rates from displacement imagery. Getting the validation split right was the main design decision: condition-aware grouping by flow rate and distance to prevent leakage across related clips. Held-out R² of 0.85.
             </p>
           </div>
         </article>
@@ -758,12 +870,12 @@
           </div>
           <div class="project-body">
             <div class="project-tag-row">
-              <span class="project-tag">Measurement</span>
-              <span class="arrow">↗</span>
+              <span class="project-tag">Computer vision</span>
+
             </div>
-            <h3>Bubble tracking</h3>
+            <h3>Snoop CV</h3>
             <p>
-              Computer-vision features for turning qualitative soapy-water leak-test footage into quantitative, repeatable measurements.
+              Snoop solution (soap bubbles) is how most field techs check for leaks — watch for bubbles, make a call. No number, no repeatability, no defined uncertainty. This project uses smartphone video and a CNN-to-regression pipeline to change that.
             </p>
           </div>
         </article>
@@ -775,11 +887,11 @@
           <div class="project-body">
             <div class="project-tag-row">
               <span class="project-tag">Modeling</span>
-              <span class="arrow">↗</span>
+
             </div>
             <h3>Plume estimates</h3>
             <p>
-              Uncertainty-aware modeling and fast analysis routines for sensing, localization, and source-estimation problems.
+              Sensor arrays give you readings at fixed points — this uses Gaussian Process Regression to interpolate those into a full concentration field, then couples the result with the TNO multi-energy method to estimate explosive overpressures from hydrogen releases. Published at ICHS 2023.
             </p>
           </div>
         </article>
@@ -790,7 +902,7 @@
       <div class="contact-card">
         <h2>Got a strange signal?</h2>
         <p>
-          I’m interested in measurement problems that need a blend of physics intuition, image analysis, machine learning, and fast prototyping.
+          Currently at NLR and open to conversations about what's next. Applied ML, sensing, and hardware-software integration are the most natural fit — though I care more about whether the problem is genuinely hard than what domain it's in.
         </p>
         <a class="button" href="mailto:ian2000pal@gmail.com">ian2000pal@gmail.com →</a>
       </div>
@@ -807,8 +919,97 @@
     </div>
   </footer>
 
+  <!-- Modal overlay -->
+  <div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-card" id="modal-card">
+      <button class="modal-close" id="modal-close" aria-label="Close">✕</button>
+      <div class="modal-header">
+        <div class="modal-tag" id="modal-tag"></div>
+        <h2 class="modal-title" id="modal-title"></h2>
+        <p class="modal-desc" id="modal-desc"></p>
+      </div>
+      <div class="modal-images" id="modal-images"></div>
+    </div>
+  </div>
+
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    const projects = {
+      "BOS leak detection": {
+        tag: "Computer vision",
+        desc: "Background-oriented schlieren (BOS) is an optical technique that makes invisible gas flows visible by tracking tiny distortions in a patterned background. This pipeline ingests high-speed video, runs GPU-accelerated optical flow to extract per-pixel displacement fields, then applies machine-learning models to classify and quantify refractive-index disturbances. The result is a system that can flag a leak in near-real-time from standard camera footage — no expensive equipment, no contact with the gas, and no need for tracer particles.",
+        images: ["BOS displacement field", "GPU pipeline overview", "ML classification output"],
+        cols: 3
+      },
+      "Plant robot": {
+        tag: "Hardware",
+        desc: "A fully self-contained automated plant-watering system built from scratch. The custom two-layer PCB integrates a microcontroller, peristaltic pump driver, soil-moisture sensor interface, and a small display for status feedback. The enclosure was designed in CAD with manufacturing tolerances in mind — printed in multiple revisions before landing on a geometry that is easy to assemble, service, and actually looks good sitting on a windowsill.",
+        images: ["PCB layout", "Assembled enclosure"],
+        cols: 2
+      },
+      "Leak-rate inference": {
+        tag: "Applied ML",
+        desc: "The ML layer on top of the BOS optical pipeline. The dataset was collected to specifically test generalization across physical conditions — different flow rates, distances, and lighting setups — rather than fitting to a single configuration. CNN and ResNet models with custom regression heads were trained on the lab's Slurm HPC cluster, scaling to four GPUs. The main design decision was the validation split: naive random sampling leaks information across related video clips, so the grouping is condition-aware by flow rate and distance. Grad-CAM checks confirmed the models were attending to the plume and not background texture. Final held-out R² of 0.85.",
+        images: ["Training pipeline diagram", "Grad-CAM overlay"],
+        cols: 2
+      },
+      "Snoop CV": {
+        tag: "Computer vision",
+        desc: "Snoop solution — soapy water — is one of the most common field methods for finding gas leaks. A technician sprays it on a fitting, watches for bubbles, and makes a qualitative call. There's no number, no defined uncertainty, and no real consistency between operators or test sessions. This project builds a smartphone pipeline to change that: video frames are embedded with a CNN, aggregated across the clip, and fed into a regression head to produce a calibrated leak estimate. The goal is something deployable on hardware field crews already carry, with an output that can actually be compared across tests.",
+        images: ["Frame embedding pipeline", "Regression output"],
+        cols: 2
+      },
+      "Plume estimates": {
+        tag: "Modeling",
+        desc: "When you have a sensor array spread across an outdoor site, each sensor gives you a concentration reading at a fixed point — but you want to know what the field looks like everywhere, not just where you happened to place sensors. Gaussian Process Regression handles the irregular spatial sampling and provides uncertainty bounds on the interpolated field. The interpolated map was then coupled with the TNO multi-energy method to estimate explosive overpressures from liquid hydrogen releases, giving both a spatial picture of the hazard and a worst-case energy estimate. Published in the ICHS 2023 paper in Quebec.",
+        images: ["GPR concentration field", "Overpressure estimate", "Sensor array layout"],
+        cols: 3
+      }
+    };
+
+    function openModal(title) {
+      const data = projects[title];
+      if (!data) return;
+
+      document.getElementById("modal-tag").textContent = data.tag;
+      document.getElementById("modal-title").textContent = title;
+      document.getElementById("modal-desc").textContent = data.desc;
+
+      const imagesEl = document.getElementById("modal-images");
+      imagesEl.innerHTML = data.images.map(label =>
+        `<div class="modal-img-slot">${label}<br><span style="font-weight:700;font-size:0.75rem;opacity:0.6;margin-top:6px;display:block;">Image placeholder</span></div>`
+      ).join("");
+      imagesEl.className = "modal-images" + (data.cols === 2 ? " two-up" : "");
+
+      const overlay = document.getElementById("modal-overlay");
+      overlay.classList.add("open");
+      overlay.scrollTop = 0;
+      document.body.style.overflow = "hidden";
+      document.getElementById("modal-close").focus();
+    }
+
+    function closeModal() {
+      document.getElementById("modal-overlay").classList.remove("open");
+      document.body.style.overflow = "";
+    }
+
+    document.querySelectorAll(".project-card").forEach(card => {
+      card.addEventListener("click", () => {
+        const title = card.querySelector("h3").textContent.trim();
+        openModal(title);
+      });
+    });
+
+    document.getElementById("modal-close").addEventListener("click", closeModal);
+
+    document.getElementById("modal-overlay").addEventListener("click", e => {
+      if (e.target === e.currentTarget) closeModal();
+    });
+
+    document.addEventListener("keydown", e => {
+      if (e.key === "Escape") closeModal();
+    });
   </script>
   <script data-goatcounter="https://ianpalin.goatcounter.com/count"async src="//gc.zgo.at/count.js">
   </script>
