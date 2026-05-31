@@ -817,7 +817,7 @@
       </div>
 
       <div class="project-grid">
-        <article class="project-card featured" data-id="bos">
+        <article class="project-card" data-id="bos">
           <div class="project-media">
             <iframe
               src="https://www.youtube.com/embed/2K7Hlrp6Olk"
@@ -836,8 +836,22 @@
             </p>
           </div>
         </article>
-        
-      
+
+        <article class="project-card" data-id="placeholder">
+          <div class="project-media">
+            <div class="image-placeholder">Add project image here</div>
+          </div>
+          <div class="project-body">
+            <div class="project-tag-row">
+              <span class="project-tag">Placeholder</span>
+            </div>
+            <h3>Project six</h3>
+            <p>
+              Placeholder text for a sixth project. Replace this with whatever you want to put here.
+            </p>
+          </div>
+        </article>
+
         <article class="project-card" data-id="plant">
           <div class="project-media plant-media">
             <!-- Replace this with your converted plant project image. GitHub Pages cannot use /Users/... local paths. -->
@@ -970,6 +984,12 @@
         desc: "When you have a sensor array spread across an outdoor site, each sensor gives you a concentration reading at a fixed point — but you want to know what the field looks like everywhere, not just where you happened to place sensors. Gaussian Process Regression handles the irregular spatial sampling and provides uncertainty bounds on the interpolated field. The interpolated map was then coupled with the TNO multi-energy method to estimate explosive overpressures from liquid hydrogen releases, giving both a spatial picture of the hazard and a worst-case energy estimate. Published in the ICHS 2023 paper in Quebec.",
         images: ["GPR concentration field", "Overpressure estimate", "Sensor array layout"],
         cols: 3
+      },
+      "Project six": {
+        tag: "Placeholder",
+        desc: "Placeholder — swap this out with the real project description when you're ready.",
+        images: ["Image one", "Image two"],
+        cols: 2
       }
     };
 
