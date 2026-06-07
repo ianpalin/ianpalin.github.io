@@ -962,7 +962,7 @@
     const projects = {
       "BOS leak detection": {
         tag: "Computer vision",
-        desc: "Background-oriented schlieren (BOS) is an optical technique that makes invisible gas flows visible by tracking tiny distortions in a patterned background. This pipeline ingests high-speed video, runs GPU-accelerated optical flow to extract per-pixel displacement fields, then applies machine-learning models to classify and quantify refractive-index disturbances. The result is a system that can flag a leak in near-real-time from standard camera footage — no expensive equipment, no contact with the gas, and no need for tracer particles.",
+        desc: "Background-oriented schlieren (BOS) is an optical technique that makes invisible gas flows visible by tracking tiny distortions between sequential images caused by index of refraction gradients. This pipeline ingests high resolution images, runs GPU-accelerated particle image velocimitry to extract displacement fields, then applies machine learning models to classify and quantify gas leaks. The result is a system that can flag a leak in near real time using nothing but a camera. I created the custom kernel GPU PIV algorithm, collected the data, trained the models, and built an integrated front end system.",
         images: ["assets/schlieren_1.png", "GPU pipeline overview", "ML classification output"],
         cols: 3
       },
