@@ -651,23 +651,37 @@
 
     .modal-img-slot {
       aspect-ratio: 4 / 3;
-      display: grid;
-      place-items: center;
-      text-align: center;
-      font-weight: 950;
-      font-size: 0.88rem;
-      letter-spacing: -0.03em;
-      padding: 20px;
       border-right: 3px solid var(--line);
-      background: var(--blue);
+      background: #1a1a1a;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .modal-img-slot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
     .modal-img-slot:last-child {
       border-right: 0;
     }
 
-    .modal-img-slot:nth-child(2) { background: var(--green); }
-    .modal-img-slot:nth-child(3) { background: var(--pink); }
+    .modal-video-slot {
+      aspect-ratio: 16 / 9;
+    }
+
+    .modal-video-slot iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    .modal-images.one-up {
+      grid-template-columns: 1fr;
+    }
 
     @media (max-width: 900px) {
       nav {
@@ -819,12 +833,7 @@
       <div class="project-grid">
         <article class="project-card" data-id="bos">
           <div class="project-media">
-            <iframe
-              src="https://www.youtube.com/embed/2K7Hlrp6Olk"
-              title="Background Oriented Schlieren video"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen>
-            </iframe>
+            <img src="assets/schlieren_1.png" alt="Background Oriented Schlieren displacement field" />
           </div>
           <div class="project-body">
             <div class="project-tag-row">
@@ -961,40 +970,53 @@
 
     const projects = {
       "BOS leak detection": {
-        tag: "Computer vision",
+        tag: "CV, ML, GPU acceleration",
         desc: "Background-oriented schlieren (BOS) is an optical technique that makes invisible gas flows visible by tracking tiny distortions between sequential images caused by index of refraction gradients. This pipeline ingests high resolution images, runs GPU-accelerated particle image velocimitry to extract displacement fields, then applies machine learning models to classify and quantify gas leaks. The result is a system that can flag a leak in near real time using nothing but a camera. I created the custom kernel GPU PIV algorithm, collected the data, trained the models, and built an integrated front end system.",
-        images: ["assets/schlieren_1.png", "assets/schlieren_2.png"],
-        cols: 2
+        media: [
+          { type: "img",     src: "assets/schlieren_1.png" },
+          { type: "youtube", src: "https://www.youtube.com/embed/2K7Hlrp6Olk" },
+          { type: "img",     src: "assets/schlieren_2.png" }
+        ]
       },
       "Plant robot": {
-        tag: "Hardware",
+        tag: "MCAD, ECAD, design iteration",
         desc: "A fully self-contained automated plant-watering system built from scratch. The custom two-layer PCB integrates a microcontroller, peristaltic pump driver, soil-moisture sensor interface, and a small display for status feedback. The enclosure was designed in CAD with manufacturing tolerances in mind — printed in multiple revisions before landing on a geometry that is easy to assemble, service, and actually looks good sitting on a windowsill.",
-        images: ["assets/IMG_7925-2.jpeg"],
-        cols: 1
+        media: [
+          { type: "img", src: "assets/IMG_7925-2.jpeg" }
+        ]
       },
-      "Leak-rate inference": {
-        tag: "Applied ML",
-        desc: "The ML layer on top of the BOS optical pipeline. The dataset was collected to specifically test generalization across physical conditions — different flow rates, distances, and lighting setups — rather than fitting to a single configuration. CNN and ResNet models with custom regression heads were trained on the lab's Slurm HPC cluster, scaling to four GPUs. The main design decision was the validation split: naive random sampling leaks information across related video clips, so the grouping is condition-aware by flow rate and distance. Grad-CAM checks confirmed the models were attending to the plume and not background texture. Final held-out R² of 0.85.",
-        images: ["assets/wireless_1.png", "assets/wireless_2.jpg"],
-        cols: 2
-      },
-      "Snoop CV": {
-        tag: "Computer vision",
-        desc: "Snoop solution — soapy water — is one of the most common field methods for finding gas leaks. A technician sprays it on a fitting, watches for bubbles, and makes a qualitative call. There's no number, no defined uncertainty, and no real consistency between operators or test sessions. This project builds a smartphone pipeline to change that: video frames are embedded with a CNN, aggregated across the clip, and fed into a regression head to produce a calibrated leak estimate. The goal is something deployable on hardware field crews already carry, with an output that can actually be compared across tests.",
-        images: ["GPR_1.PNG"],
-        cols: 1
+      "Wireless sensor network": {
+        tag: "Embedded, Sensor systems, signal management",
+        desc: "Designed, programmed, built, and iterated a wireless sensor network for live monitoring and gas release behavior modeling data collection.",
+        media: [
+          { type: "img", src: "assets/wireless_1.png" },
+          { type: "img", src: "assets/wireless_2.jpg" }
+        ]
       },
       "Plume estimates": {
-        tag: "Modeling",
+        tag: "Modeling, ML",
         desc: "When you have a sensor array spread across an outdoor site, each sensor gives you a concentration reading at a fixed point — but you want to know what the field looks like everywhere, not just where you happened to place sensors. Gaussian Process Regression handles the irregular spatial sampling and provides uncertainty bounds on the interpolated field. The interpolated map was then coupled with the TNO multi-energy method to estimate explosive overpressures from liquid hydrogen releases, giving both a spatial picture of the hazard and a worst-case energy estimate. Published in the ICHS 2023 paper in Quebec.",
-        images: ["assets/controls_1.png", "assets/controls_2.png", "assets/controls_3.png"],
-        cols: 3
+        media: [
+          { type: "img", src: "assets/GPR_1.PNG" }
+        ]
       },
-      "Project six": {
+      "Controls and electronics builds": {
+        tag: "Signal management, Electrical design, PLC",
+        desc: "Expieremental and permenent installations of controls systems, integrated to many devices and communication protocols.",
+        media: [
+          { type: "img", src: "assets/controls_1.png" },
+          { type: "img", src: "assets/controls_2.png" },
+          { type: "img", src: "assets/controls_3.png" }
+        ]
+      },
+      "Robotics projects": {
         tag: "Placeholder",
         desc: "Placeholder — swap this out with the real project description when you're ready.",
-        images: ["assets/robotics_1.jepg", "assets/robotics_2.jpg", "assets/robotics_3.jpeg"],
-        cols: 2
+        media: [
+          { type: "img", src: "assets/robotics_1.jpeg" },
+          { type: "img", src: "assets/robotics_2.jpg" },
+          { type: "img", src: "assets/robotics_3.jpeg" }
+        ]
       }
     };
 
@@ -1006,11 +1028,25 @@
       document.getElementById("modal-title").textContent = title;
       document.getElementById("modal-desc").textContent = data.desc;
 
+      const mediaItems = data.media;
+      const cols = mediaItems.length;
+
       const imagesEl = document.getElementById("modal-images");
-      imagesEl.innerHTML = data.images.map(label =>
-        `<div class="modal-img-slot">${label}<br><span style="font-weight:700;font-size:0.75rem;opacity:0.6;margin-top:6px;display:block;">Image placeholder</span></div>`
-      ).join("");
-      imagesEl.className = "modal-images" + (data.cols === 2 ? " two-up" : "");
+      imagesEl.innerHTML = mediaItems.map(item => {
+        if (item.type === "youtube") {
+          return `<div class="modal-img-slot modal-video-slot">
+            <iframe src="${item.src}" title="Project video"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen></iframe>
+          </div>`;
+        }
+        return `<div class="modal-img-slot">
+          <img src="${item.src}" alt="${title}">
+        </div>`;
+      }).join("");
+
+      imagesEl.className = "modal-images" +
+        (cols === 1 ? " one-up" : cols === 2 ? " two-up" : "");
 
       const overlay = document.getElementById("modal-overlay");
       overlay.classList.add("open");
