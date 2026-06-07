@@ -963,37 +963,37 @@
       "BOS leak detection": {
         tag: "Computer vision",
         desc: "Background-oriented schlieren (BOS) is an optical technique that makes invisible gas flows visible by tracking tiny distortions between sequential images caused by index of refraction gradients. This pipeline ingests high resolution images, runs GPU-accelerated particle image velocimitry to extract displacement fields, then applies machine learning models to classify and quantify gas leaks. The result is a system that can flag a leak in near real time using nothing but a camera. I created the custom kernel GPU PIV algorithm, collected the data, trained the models, and built an integrated front end system.",
-        images: ["assets/schlieren_1.png", "GPU pipeline overview", "ML classification output"],
-        cols: 3
+        images: ["assets/schlieren_1.png", "assets/schlieren_2.png"],
+        cols: 2
       },
       "Plant robot": {
         tag: "Hardware",
         desc: "A fully self-contained automated plant-watering system built from scratch. The custom two-layer PCB integrates a microcontroller, peristaltic pump driver, soil-moisture sensor interface, and a small display for status feedback. The enclosure was designed in CAD with manufacturing tolerances in mind — printed in multiple revisions before landing on a geometry that is easy to assemble, service, and actually looks good sitting on a windowsill.",
-        images: ["PCB layout", "Assembled enclosure"],
-        cols: 2
+        images: ["assets/IMG_7925-2.jpeg"],
+        cols: 1
       },
       "Leak-rate inference": {
         tag: "Applied ML",
         desc: "The ML layer on top of the BOS optical pipeline. The dataset was collected to specifically test generalization across physical conditions — different flow rates, distances, and lighting setups — rather than fitting to a single configuration. CNN and ResNet models with custom regression heads were trained on the lab's Slurm HPC cluster, scaling to four GPUs. The main design decision was the validation split: naive random sampling leaks information across related video clips, so the grouping is condition-aware by flow rate and distance. Grad-CAM checks confirmed the models were attending to the plume and not background texture. Final held-out R² of 0.85.",
-        images: ["Training pipeline diagram", "Grad-CAM overlay"],
+        images: ["assets/wireless_1.png", "assets/wireless_2.jpg"],
         cols: 2
       },
       "Snoop CV": {
         tag: "Computer vision",
         desc: "Snoop solution — soapy water — is one of the most common field methods for finding gas leaks. A technician sprays it on a fitting, watches for bubbles, and makes a qualitative call. There's no number, no defined uncertainty, and no real consistency between operators or test sessions. This project builds a smartphone pipeline to change that: video frames are embedded with a CNN, aggregated across the clip, and fed into a regression head to produce a calibrated leak estimate. The goal is something deployable on hardware field crews already carry, with an output that can actually be compared across tests.",
-        images: ["Frame embedding pipeline", "Regression output"],
-        cols: 2
+        images: ["GPR_1.PNG"],
+        cols: 1
       },
       "Plume estimates": {
         tag: "Modeling",
         desc: "When you have a sensor array spread across an outdoor site, each sensor gives you a concentration reading at a fixed point — but you want to know what the field looks like everywhere, not just where you happened to place sensors. Gaussian Process Regression handles the irregular spatial sampling and provides uncertainty bounds on the interpolated field. The interpolated map was then coupled with the TNO multi-energy method to estimate explosive overpressures from liquid hydrogen releases, giving both a spatial picture of the hazard and a worst-case energy estimate. Published in the ICHS 2023 paper in Quebec.",
-        images: ["GPR concentration field", "Overpressure estimate", "Sensor array layout"],
+        images: ["assets/controls_1.png", "assets/controls_2.png", "assets/controls_3.png"],
         cols: 3
       },
       "Project six": {
         tag: "Placeholder",
         desc: "Placeholder — swap this out with the real project description when you're ready.",
-        images: ["Image one", "Image two"],
+        images: ["assets/robotics_1.jepg", "assets/robotics_2.jpg", "assets/robotics_3.jpeg"],
         cols: 2
       }
     };
